@@ -83,7 +83,7 @@ M.run = function()
   local content = vim.treesitter.get_node_text(code_content, bufnr)
   for _, v in ipairs(config.cmds[lang]) do
     local replaced = v:gsub("{CODE_BLOCK}", content)
-    replaced = v:gsub("\\", "\\\\")
+    replaced = replaced:gsub("\\", "\\\\")
     table.insert(cmd, replaced)
   end
   table.insert(cmd, content)
