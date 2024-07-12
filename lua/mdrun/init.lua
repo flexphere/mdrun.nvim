@@ -80,11 +80,12 @@ M.run = function()
   end
 
   local cmd = {}
+  local content = vim.treesitter.get_node_text(code_content, bufnr)
   for _, v in ipairs(config.cmds[lang]) do
-    local replaced = v:gsub('{CODE_BLOCK}', code_content)
+    local replaced = v:gsub("{CODE_BLOCK}", content)
     table.insert(cmd, replaced)
   end
-  table.insert(cmd, vim.treesitter.get_node_text(code_content, bufnr))
+  table.insert(cmd, content)
 
   vim.fn.jobstart(cmd, {
     stdout_buffered = true,
