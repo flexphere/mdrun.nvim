@@ -42,7 +42,7 @@ require('mdrun').setup({
         ts = { 'npx', '--yes', 'tsx', '-e' },
         sql = { 'sqlite3', '-header', ':memory:'},
         php = { 'docker', 'run', '--rm', 'php', 'php', '-r' },
-	c = { 'sh', '-c', "echo '{CODE_BLOCK}' > /tmp/mdrun.c && gcc /tmp/mdrun.c && /tmp/a.out" },
+	c = { 'sh', '-c', "echo '{CODE_BLOCK}' > /tmp/mdrun.c && gcc /tmp/mdrun.c -o /tmp/mdrun && /tmp/mdrun" },
     },
 })
 ```
