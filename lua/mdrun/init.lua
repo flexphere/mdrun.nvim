@@ -84,6 +84,7 @@ M.run = function()
   for _, v in ipairs(config.cmds[lang]) do
     local replaced = v:gsub("{CODE_BLOCK}", content)
     replaced = replaced:gsub("\\", "\\\\")
+    replaced = replaced:gsub("'", "\'")
     table.insert(cmd, replaced)
   end
   table.insert(cmd, content)
