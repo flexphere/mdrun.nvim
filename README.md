@@ -42,3 +42,27 @@ require('mdrun').setup({
 })
 ```
 
+`{CODE_BLOCK}` string in the command would be replaced with the code block content.
+if you want to run the code block for compiled languages in a code block, you can use something like the following:
+
+your markdown:
+```markdown
+```c
+#include <stdio.h>
+
+int main(){
+    printf("hello from c");
+    return 0;
+}
+```
+```
+
+mdrun setup:
+
+```lua
+require('mdrun').setup({
+    cmds = {
+	c = { 'sh', '-c', "echo '{CODE_BLOCK}' > /tmp/mdrun.c && gcc /tmp/mdrun.c -o /tmp/mdrun && /tmp/mdrun" },
+    },
+})
+
