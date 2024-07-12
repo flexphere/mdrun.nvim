@@ -81,7 +81,8 @@ M.run = function()
 
   local cmd = {}
   for _, v in ipairs(config.cmds[lang]) do
-    table.insert(cmd, v)
+    local replaced = v:gsub('{CODE_BLOCK}', code_content)
+    table.insert(cmd, replaced)
   end
   table.insert(cmd, vim.treesitter.get_node_text(code_content, bufnr))
 
