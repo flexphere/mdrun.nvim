@@ -21,7 +21,7 @@ Run code blocks in markdown files.
 mdrun provides a single comman `run` to run code blocks in current cursor position.
 you can run `:lua require('mdrun').run()` in command mode or map it to a keybinding.
 ```lua
-vim.api.nvim_set_keymap('n', '<leader>r', require("mdrun").run, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader><enter>', require('mdrun').run, { desc = 'Run CodeBlock' })
 ```
 
 
