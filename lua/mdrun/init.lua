@@ -4,6 +4,7 @@ local config = {
 	cmds = {
 		sh = { "sh", "-c" },
 	},
+	layout = "vertical",
 }
 
 local buffer_id = nil
@@ -11,7 +12,13 @@ local window_id = nil
 
 local function open_or_reuse_buffer()
 	if window_id == nil or vim.api.nvim_win_is_valid(window_id) == false then
-		vim.cmd("vsplit")
+		if config.layout == "vertical" then
+			vim.cmd("vsplit")
+		elseif config.layout == "horizontal" then
+			vim.cmd("split")
+		else
+			error("Invalid layout")
+		end
 		window_id = vim.api.nvim_get_current_win()
 	end
 
