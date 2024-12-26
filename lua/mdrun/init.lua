@@ -44,14 +44,21 @@ end
 
 local function get_code_block_lang(code_block, bufnr)
 	local lang = ""
+	local tag = ""
 	if code_block:child(1) ~= nil then
 		local lang_node = code_block:child(1)
 		if lang_node:type() == "info_string" then
 			lang = vim.treesitter.get_node_text(lang_node, bufnr)
+			-- split lang:tag
+			local pos = string.find(lang, ":", 1)
+			if pos ~= nil then
+				lang = string.sub(lang, 1, pos - 1)
+				tag = string.sub(lang, pos + 1)
+			end
 		end
 	end
 
-	return lang
+	return lang, tag
 end
 
 local output_handler = function(_, data, _)
@@ -95,7 +102,7 @@ M.run = function()
 		error("cursor must be inside a code block.")
 	end
 
-	local lang = get_code_block_lang(code_block, bufnr)
+	local lang, tag = get_code_block_lang(code_block, bufnr)
 	if config.cmds[lang] == nil then
 		error(lang .. ": Not supported")
 	end
@@ -104,6 +111,7 @@ M.run = function()
 	local content = vim.treesitter.get_node_text(code_content, bufnr)
 	for _, v in ipairs(config.cmds[lang]) do
 		local replaced = v:gsub("{CODE_BLOCK}", content)
+		replaced = v:gsub("{TAG}", tag)
 		replaced = replaced:gsub("\\", "\\\\")
 		replaced = replaced:gsub("'", "'")
 		table.insert(cmd, replaced)
