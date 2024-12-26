@@ -50,10 +50,10 @@ local function get_code_block_lang(code_block, bufnr)
 		if lang_node:type() == "info_string" then
 			lang = vim.treesitter.get_node_text(lang_node, bufnr)
 			-- split lang:tag
-			local pos = string.find(lang, ":", 1)
+			local pos = string.find(lang, " ", 1)
 			if pos ~= nil then
-				lang = string.sub(lang, 1, pos - 1)
 				tag = string.sub(lang, pos + 1)
+				lang = string.sub(lang, 1, pos - 1)
 			end
 		end
 	end
