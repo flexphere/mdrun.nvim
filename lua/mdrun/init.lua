@@ -119,6 +119,11 @@ M.run = function()
 	table.insert(cmd, content)
 
 	vim.fn.jobstart(cmd, {
+		env = {
+			MDRUN_CODE_BLOCK = content,
+			MDRUN_LANG = lang,
+			MDRUN_TAG = tag,
+		},
 		stdout_buffered = true,
 		stderr_buffered = true,
 		on_stdout = output_handler,
