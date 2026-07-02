@@ -36,12 +36,12 @@ common use case would be to run code blocks for compiled languages.
 ```lua
 require('mdrun').setup({
     cmds = {
-	sh = { 'sh', '-c' },
-        python = { 'python3', '-c' },
-        js = { 'node', '-e' },
-        ts = { 'npx', '--yes', 'tsx', '-e' },
-        sql = { 'sqlite3', '-header', ':memory:'},
-        php = { 'docker', 'run', '--rm', 'php', 'php', '-r' },
+	sh = { 'sh', '-c', '{CODE_BLOCK}' },
+        python = { 'python3', '-c', '{CODE_BLOCK}' },
+        js = { 'node', '-e', '{CODE_BLOCK}' },
+        ts = { 'npx', '--yes', 'tsx', '-e', '{CODE_BLOCK}' },
+        sql = { 'sqlite3', '-header', ':memory:', '{CODE_BLOCK}' },
+        php = { 'docker', 'run', '--rm', 'php', 'php', '-r', '{CODE_BLOCK}' },
 	c = { 'sh', '-c', "echo '{CODE_BLOCK}' > /tmp/mdrun.c && gcc /tmp/mdrun.c -o /tmp/mdrun && /tmp/mdrun" },
     },
 })
